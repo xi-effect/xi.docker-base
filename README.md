@@ -7,6 +7,18 @@ Basic docker image with the latest system & pip updates, sometimes bundled with 
 
 Tags are formed in a pattern: `python-{PYTHON_VERSION}-{PACKAGE_MANAGER}-{PACKAGE_MANAGER_VERSION}`, for example, `python-3.13-poetry-2.1.2` contains Python 3.13 and Poetry 2.1.2 with default configs (poetry is configured not to create virtual environments)
 
+Example usage:
+```dockerfile
+FROM xieffect/python-base:python-3.13-poetry-2.1.2
+
+WORKDIR /backend
+COPY pyproject.toml poetry.lock ./
+RUN poetry install --no-interaction --no-ansi --only main
+
+COPY ./app /backend/app
+ENTRYPOINT ["uvicorn", "app.main:app", "--host", "0.0.0.0"]
+```
+
 #### python-script
 Basic docker image for simple scripts, with:[requirements.txt](python-script%2Frequirements.txt)
 - Python 3.13
@@ -14,6 +26,14 @@ Basic docker image for simple scripts, with:[requirements.txt](python-script%2Fr
 - The working directory set to `/script`
 - Buffering is disabled (`PYTHONUNBUFFERED=1`)
 - Writing byte-code is disabled (`PYTHONDONTWRITEBYTECODE=1`)
+
+Example usage:
+```sh
+docker run \
+  -ti \
+  xieffect/python-script \
+  python -m asyncio
+```
 
 ### Contribution
 1. Clone the project and run `pre_commit install` to setup basic linters
