@@ -1,0 +1,8 @@
+anyio==4.9.0  # Extended async functionality, including async file operations
+httpx==0.28.1  # For sync & async http-requests
+pydantic==2.11.3  # Data (de-)serialization
+aio-pika==9.5.5  # RabbitMQ client
+redis==5.2.1  # Redis client
+motor==3.7.0  # MongoDB (with async)
+sqlalchemy[asyncio]==2.0.40  # SQL (with ORM and async)
+psycopg==3.2.6  # SQL (with ORM and async)

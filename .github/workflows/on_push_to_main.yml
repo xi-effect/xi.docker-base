@@ -19,6 +19,9 @@ jobs:
             build_args: |
               PYTHON_VERSION=3.13
               POETRY_VERSION=2.1.2
+          - image_name: python-script
+            image_tag: latest
+            base_folder: python-script/
     name: ${{ matrix.image_config.image_name }}:${{ matrix.image_config.image_tag }}
 
     steps:

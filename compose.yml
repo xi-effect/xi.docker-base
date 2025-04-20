@@ -6,3 +6,8 @@ services:
         PYTHON_VERSION: 3.13
         POETRY_VERSION: 2.1.2
     image: xieffect/python-base:python-3.13-poetry-2.1.2
+
+  python_script:
+    build:
+      dockerfile: python-script/main.dockerfile
+    image: xieffect/python-script:latest
