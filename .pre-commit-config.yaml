@@ -1,0 +1,15 @@
+# See https://pre-commit.com/ for usage and config
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      # general:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-added-large-files
+      # executable files:
+      - id: check-executables-have-shebangs
+      # other files (markup & docs):
+      - id: check-json
+      - id: check-yaml
