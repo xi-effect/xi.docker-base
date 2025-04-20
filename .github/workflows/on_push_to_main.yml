@@ -6,7 +6,16 @@ on:
       - main
 
 jobs:
+  run_pre_commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.2.2
+      - uses: actions/setup-python@v5.5.0
+      - uses: pre-commit/action@v3.0.1
+
   build_and_push:
+    needs:
+      - run_pre_commit
     runs-on: ubuntu-latest
 
     strategy:
@@ -26,7 +35,7 @@ jobs:
 
     steps:
         - name: Checkout
-          uses: actions/checkout@v4
+          uses: actions/checkout@v4.2.2
 
         - name: Build and push
           uses: niqzart/ffs-devops/docker-build@main
