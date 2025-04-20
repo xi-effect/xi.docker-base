@@ -1,0 +1,37 @@
+name: On Push To Main (Deploy)
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_and_push:
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        image_config:
+          - image_name: python-base
+            image_tag: python-3.13-poetry-2.1.2
+            base_folder: python-base/
+            build_args: |
+              PYTHON_VERSION=3.13
+              POETRY_VERSION=2.1.2
+    name: ${{ matrix.image_config.image_name }}:${{ matrix.image_config.image_tag }}
+
+    steps:
+        - name: Checkout
+          uses: actions/checkout@v4
+
+        - name: Build and push
+          uses: niqzart/ffs-devops/docker-build@main
+          with:
+            username: ${{ secrets.DOCKER_USERNAME }}
+            password: ${{ secrets.DOCKER_PASSWORD }}
+            repository: ${{ matrix.image_config.image_name }}
+            tag: ${{ matrix.image_config.image_tag }}
+            context: ${{ matrix.image_config.base_folder }}
+            dockerfile: ${{ matrix.image_config.base_folder }}/main.dockerfile
+            arguments: ${{ matrix.image_config.build_args }}

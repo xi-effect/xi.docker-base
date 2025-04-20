@@ -1,0 +1,8 @@
+services:
+  python_3.13_poetry_2.1.2:
+    build:
+      dockerfile: python-base/main.dockerfile
+      args:
+        PYTHON_VERSION: 3.13
+        POETRY_VERSION: 2.1.2
+    image: xieffect/python-base:python-3.13-poetry-2.1.2
